@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,31 @@ namespace WpfMoreComplexApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Default Constractor
+        /// </summary>
+        #region constractor
         public MainWindow()
         {
             InitializeComponent();
         }
+        #endregion
+
+        /// <summary>
+        /// When the App first opens
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        #region On Loaded
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            foreach (var drive in Directory.GetLogicalDrives())
+            {
+                var item = new TreeViewItem();
+                item.Header = drive;
+                FolderView.Items.Add(item);
+            }
+        }
+        #endregion
     }
 }
