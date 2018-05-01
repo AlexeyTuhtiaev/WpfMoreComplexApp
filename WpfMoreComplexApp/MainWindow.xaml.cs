@@ -46,9 +46,13 @@ namespace WpfMoreComplexApp
                 FolderView.Items.Add(item);
             }
         }
+        #endregion
 
+        #region Folder_Expanded
         private void Folder_Expanded(object sender, RoutedEventArgs e)
         {
+            #region Initial Cheks
+
             var item = (TreeViewItem)sender;
 
             if (item.Items.Count != 1 && item.Items[0] != null)
@@ -59,6 +63,10 @@ namespace WpfMoreComplexApp
             item.Items.Clear();
 
             var fullPath = (string)item.Tag;
+
+            #endregion
+
+            #region Get folders
 
             var directories = new List<string>();
 
@@ -88,8 +96,40 @@ namespace WpfMoreComplexApp
 
                 item.Items.Add(subItem);
             });
+            #endregion
 
+            #region Get Files
+
+            var files = new List<string>();
+
+            try
+            {
+                var fs = Directory.GetFiles(fullPath);
+                if (fs.Length > 0)
+                {
+                    files.AddRange(fs);
+                }
+            }
+            catch (Exception)
+            {
+                //TODO: catching!!!!
+            }
+
+            files.ForEach(filePath =>
+            {
+                var subItem = new TreeViewItem()
+                {
+                    Header = GetFileFolderName(filePath),
+                    Tag = filePath
+                };
+
+                item.Items.Add(subItem);
+            });
+
+            #endregion
         }
+
+        #endregion
 
         /// <summary>
         /// Find file or folder name from a full path
@@ -114,6 +154,6 @@ namespace WpfMoreComplexApp
 
             return path.Substring(lastIndex+1);
         }
-        #endregion
+       
     }
 }
