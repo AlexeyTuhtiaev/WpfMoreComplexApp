@@ -131,6 +131,8 @@ namespace WpfMoreComplexApp
 
         #endregion
 
+        #region Helpers
+
         /// <summary>
         /// Find file or folder name from a full path
         /// </summary>
@@ -154,6 +156,6 @@ namespace WpfMoreComplexApp
 
             return path.Substring(lastIndex+1);
         }
-       
+        #endregion
     }
 }
