@@ -20,7 +20,7 @@ namespace WpfMoreComplexApp
                 return null;
             }
 
-            var name = MainWindow.GetFileFolderName(path);
+            var name = DirectoryStructure.GetFileFolderName(path);
             var image = "Images/file.png";
 
             if (string.IsNullOrEmpty(name))
